@@ -55,6 +55,7 @@
 
 | Файл | Размер | Прямая ссылка | Описание |
 |---|---|---|---|
+| **`airplay-lite-5.6.2.tar.gz`** | 10.4 МиБ | [Архив](packages/airplay-lite-5.6.2.tar.gz), [SHA256](packages/airplay-lite-5.6.2.tar.gz.sha256) | AirPlay 2 для Лайта: приёмник, кнопки, подсветка и сигнал. [Установщик и исходники](airplay-lite/README.md), [инструкция](../docs/recipes/airplay-lite.md). |
 | **`mac-startup-chime-t2.mp3`** | 63 КБ | [Скачать MP3](https://github.com/Marker284/yandex-station-extended/raw/main/contrib/packages/mac-startup-chime-t2.mp3) | Легендарный звук запуска Apple Mac (чип T2) для автозагрузки Станции. |
 | **`mini2-ssh.tar.gz`** | 7.6 МБ | [Скачать архив](https://github.com/Marker284/yandex-station-extended/raw/main/contrib/packages/mini2-ssh.tar.gz) | Готовый самораспаковывающийся архив SSH для Станции Мини 2. |
 | **`librespot-micro-installer.zip`**| 2.3 МБ | [Скачать zip](https://github.com/Marker284/yandex-station-extended/raw/main/contrib/packages/librespot-micro-installer.zip) | Установщик клиента Spotify Connect для Станции Лайт. |
@@ -77,7 +78,8 @@
 * **[`decrypt_ota.py`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/decrypt_ota.py)** — распаковка и расшифровка OTA-пакетов прошивки.
 
 ### Звук, медиа и стриминг:
-* **[`yandex-station-airplay-fix.sh`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/yandex-station-airplay-fix.sh)** — автоустановка и фикс Shairport Sync (AirPlay 2) с решением конфликта ALSA.
+* **[`airplay-lite/install.sh`](airplay-lite/install.sh)** — установка AirPlay 2 с нуля на Лайт, физические кнопки, световая и звуковая индикация.
+* **[`yandex-station-airplay-fix.sh`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/yandex-station-airplay-fix.sh)** — фикс уже установленной сборки с `airplayd` (проверен на Мини 3); сам пакет не устанавливает.
 * **[`spotify.sh`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/spotify.sh)** — запуск клиента Spotify Connect (`librespot`).
 * **[`music.go`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/music.go)** / **[`qstream.go`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/qstream.go)** — стриминг звука через сокет `tcp_alsa_writer`.
 * **[`mic-tap.sh`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/mic-tap.sh)** — захват микрофонного потока с PDM-матрицы.

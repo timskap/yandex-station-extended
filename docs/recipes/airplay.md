@@ -1,5 +1,9 @@
 # AirPlay (Shairport Sync)
 
+Для установки с нуля на **Станцию Лайт** доступен
+[готовый пакет AirPlay 2 с кнопками и индикацией](airplay-lite.md).
+Ниже — рецепт для уже установленной сборки с `airplayd`, проверенный на Мини 3.
+
 Станция как приёмник **AirPlay 2** для iPhone, iPad и Mac. Скрипт
 [`contrib/yandex-station-airplay-fix.sh`](https://github.com/Marker284/yandex-station-extended/blob/main/contrib/yandex-station-airplay-fix.sh)
 чинит две известные проблемы уже установленного пакета AirPlay.
@@ -14,7 +18,9 @@
 - установленный пакет AirPlay в `/data/shairport` (`airplay.sh`, `airplayd`, `ap2/shairport-sync-ap2`).
 
 !!! note "Откуда взять пакет `/data/shairport`"
-    Инструкции по установке самого пакета в вики пока нет. Если знаете источник —
+    Источник именно этой сборки с `airplayd` пока не указан. Для Лайта есть
+    [отдельный пакет и установщик](airplay-lite.md), к которому этот фикс не применяется.
+    Если знаете источник сборки для Мини 3 —
     [дополните страницу](../contributing.md).
 
 ## Установка фикса

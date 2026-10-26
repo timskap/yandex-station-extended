@@ -53,7 +53,7 @@ def pack(runtime, output):
         manifest(root)
         shutil.copy2(HERE / 'S99zairplay', stage / 'S99zairplay')
         output.parent.mkdir(parents=True, exist_ok=True)
-        with output.open('wb') as raw, gzip.GzipFile(fileobj=raw, mode='wb', mtime=0) as zipped:
+        with output.open('wb') as raw, gzip.GzipFile(filename='', fileobj=raw, mode='wb', mtime=0) as zipped:
             with tarfile.open(fileobj=zipped, mode='w') as tar:
                 for path in sorted(stage.rglob('*')):
                     if not path.is_file():

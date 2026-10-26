@@ -1,9 +1,9 @@
 #!/bin/sh
 set -eu
 STAGE=$1
-NEED_KB=$2
 case "$STAGE" in /data/airplay-lite-install-[0-9]*-[0-9]*) ;; *) exit 2 ;; esac
-sh "$STAGE/preflight.sh" install "$NEED_KB"
+# The payload is already on /data; only reserve working space at this stage.
+sh "$STAGE/preflight.sh" install 4096
 (cd "$STAGE/shairport" && sha256sum -c MANIFEST.sha256) >/dev/null
 D=/data/shairport
 mv "$STAGE/shairport" "$D"

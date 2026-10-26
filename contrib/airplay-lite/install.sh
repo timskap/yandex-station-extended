@@ -8,7 +8,7 @@ usage() {
   install.sh SERIAL MDNS_HOST [ARCHIVE]
 
 Пример:
-  install.sh 192.168.1.50:5555 yandexmicro-DEVICE_ID
+  install.sh 192.168.1.50:5555 yandexmicro-EXAMPLE123
 
 MDNS_HOST — настоящее имя колонки из Bonjour, без .local.
 Архив по умолчанию: ../packages/airplay-lite-5.6.2.tar.gz (+ .sha256).
@@ -27,7 +27,7 @@ ADB_BIN=${ADB_BIN:-adb}
 adb_() { "$ADB_BIN" -s "$SERIAL" "$@"; }
 command -v "$ADB_BIN" >/dev/null
 if [[ "$SERIAL" == *:* ]]; then "$ADB_BIN" connect "$SERIAL" >/dev/null; fi
-[ "$(adb_ get-state | tr -d '\r')" = device ] || { echo 'Устройство ADB недоступно.' >&2; exit 1; }
+[ "$(adb_ get-state | LC_ALL=C tr -d '\r')" = device ] || { echo 'Устройство ADB недоступно.' >&2; exit 1; }
 MODE=check
 NEED_KB=32768
 if [ "$CHECK" = 0 ]; then
@@ -39,14 +39,18 @@ if [ "$CHECK" = 0 ]; then
   python3 "$HERE/bundle.py" unpack --archive "$ARCHIVE" --output "$TMP/package" --mdns-host "$2"
   NEED_KB=$(( $(du -sk "$TMP/package" | awk '{print $1}') + 4096 ))
 fi
-output=$(adb_ shell "sh -s $MODE $NEED_KB" < "$HERE/preflight.sh" | tr -d '\r')
+# This adbd only supports a PTY: sending a script on stdin can hang at EOF.
+# Pass the inspected script as the remote shell command instead.
+preflight=$(cat "$HERE/preflight.sh")
+output=$(adb_ shell "set -- $MODE $NEED_KB
+$preflight" | LC_ALL=C tr -d '\r')
 printf '%s\n' "$output"
 grep -qx AIRPLAY_PREFLIGHT_OK <<< "$output" || exit 1
 [ "$CHECK" = 0 ] || exit 0
 cp "$HERE/preflight.sh" "$HERE/install-device.sh" "$TMP/package/"
 STAGE="/data/airplay-lite-install-$(date +%s)-$$"
 adb_ push "$TMP/package" "$STAGE"
-output=$(adb_ shell "sh $STAGE/install-device.sh $STAGE $NEED_KB" | tr -d '\r')
+output=$(adb_ shell "sh $STAGE/install-device.sh $STAGE" | LC_ALL=C tr -d '\r')
 printf '%s\n' "$output"
 if ! grep -qx AIRPLAY_INSTALL_OK <<< "$output"; then
   echo "Установка не завершена; файлы диагностики оставлены в $STAGE." >&2
