@@ -1,0 +1,17 @@
+#!/bin/sh
+case "$1" in
+  start)
+    (
+      n=0
+      while [ "$n" -lt 60 ]; do
+        if [ -x /data/shairport/airplay.sh ] && [ -e /dev/snd/pcmC0D0p ]; then
+          /data/shairport/airplay.sh start
+          exit
+        fi
+        sleep 1
+        n=$((n + 1))
+      done
+    ) >/tmp/shairport-boot.log 2>&1 &
+    ;;
+  stop) /data/shairport/airplay.sh stop ;;
+esac

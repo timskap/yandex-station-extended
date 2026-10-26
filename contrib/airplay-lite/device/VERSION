@@ -1,0 +1,5 @@
+Shairport Sync 5.6.2 / NQPTP 1.2.9 (smi11), ARM64 musl
+Official image: mikebrady/shairport-sync:5.6.2
+Image digest: sha256:b6192daba080e2511716490fa104a0bf96ebbb6dbf49d42a39243d9d6c5f97f9
+Device configuration: Yandex Station Lite (station-micro)
+This package does not use airplayd; the legacy binary patch does not apply.
